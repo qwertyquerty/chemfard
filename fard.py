@@ -23,6 +23,7 @@ RIGHT = ">"
 LEFT = "<"
 MOVE = "@"
 HEAT = "$"
+LOG = "."
 
 BASE_HEAT = 273
 
@@ -32,6 +33,7 @@ CMD_MOVE = "MOVE"
 CMD_HEAT = "HEAT"
 CMD_REPEAT = "REPEAT"
 CMD_END = "END"
+CMD_LOG = "LOG"
 
 VARIABLE_NAME_CHARS = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_")
 
@@ -72,7 +74,7 @@ class Compiler():
             if cmd == CMD_SET or cmd == CMD_INC:
                 t = args.pop(0)
                 args = [t] + [self.vars[arg] if arg in self.vars else arg for arg in args]
-            elif cmd == CMD_HEAT or cmd == CMD_MOVE or cmd == CMD_REPEAT or cmd == CMD_END:
+            else:
                 args = [self.vars[arg] if arg in self.vars else arg for arg in args]
 
 
@@ -82,6 +84,7 @@ class Compiler():
             elif cmd == CMD_MOVE: o=self.cmd_move(args)
             elif cmd == CMD_REPEAT: o=self.cmd_repeat(args)
             elif cmd == CMD_END: o=self.cmd_end(args)
+            elif cmd == CMD_LOG: o=self.cmd_log(args)
 
             if isinstance(o, str):
                 sys.stdout.write("ERROR on line {} during {}:\n\t{}".format(self.line_index+1, cmd, o))
@@ -159,7 +162,6 @@ class Compiler():
         self.set_var(AX, int(args[2]))
         self.output += MOVE
 
-
     def cmd_heat(self,args):
         if len(args) != 2: return "incorrect argument amount: "+str(len(args))
         if not is_digit(args[0]): return "invalid 1st argument: "+str(args[0])
@@ -196,13 +198,21 @@ class Compiler():
         else:
             del self.repeat_stack[-1]
 
+    def cmd_log(self,args):
+        print(args)
+        if len(args) != 1: return "incorrect argument amount: "+str(len(args))
+        if not is_digit(args[0]): return "invalid 1st argument: "+str(args[0])
+
+        self.generate_val(int(args[0]))
+        self.output += LOG
+
 if len(sys.argv) >= 2:
-#try:
-    code = open(sys.argv[1]).read()
-    compiler = Compiler(code)
-    out = compiler.compile()
-    if out: sys.stdout.write(out)
-#except Exception as e:
-    sys.stdout.write("Could not open file "+sys.argv[1])
+    try:
+        code = open(sys.argv[1]).read()
+        compiler = Compiler(code)
+        out = compiler.compile()
+        if out: sys.stdout.write(out)
+    except:
+        sys.stdout.write("Could not open file "+sys.argv[1])
 else:
     sys.stdout.write("Please specify a file to compile!")

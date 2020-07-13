@@ -1,2 +1,3 @@
-SET dump DUMP
-MOVE 1 dump 12
+LOG 66
+LOG 69
+LOG 69
