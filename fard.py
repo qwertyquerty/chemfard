@@ -92,10 +92,6 @@ class Compiler():
 
             self.line_index += 1
 
-        self.set_var(SX, 0)
-        self.set_var(TX, 0)
-        self.set_var(AX, 0)
-
         return self.output
 
     def get_optimal_mem_index(self,val):
