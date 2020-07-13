@@ -1,0 +1,10 @@
+SET tea 1
+SET tea_per_person 10
+SET tea_temperature 350
+SET current_slot 2
+
+REPEAT 9
+    MOVE tea current_slot tea_per_person
+    HEAT current_slot tea_temperature
+    INC current_slot 1
+END

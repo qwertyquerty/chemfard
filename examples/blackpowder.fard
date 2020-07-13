@@ -1,0 +1,20 @@
+SET sulfur 1
+SET saltpetre 2
+SET ash 3
+SET salt 4
+
+put in 100u sulfur and saltpetre, and 50u of ash and salt into the reservoirs listed above
+
+SET charcoal 5
+
+MOVE ash charcoal 50
+MOVE salt charcoal 50
+HEAT charcoal 380
+
+SET output_slot 6
+REPEAT 3
+  MOVE sulfur output_slot 33
+  MOVE charcoal output_slot 33
+  MOVE saltpetre output_slot 33
+  INC output_slot 1
+END

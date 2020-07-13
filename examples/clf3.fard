@@ -1,0 +1,6 @@
+SET chlorine 1
+SET fluorine 2
+SET clf3 3
+MOVE chlorine clf3 25
+MOVE fluorine clf3 75
+HEAT clf3 1000

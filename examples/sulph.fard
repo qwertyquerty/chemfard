@@ -1,0 +1,23 @@
+SET Copper 1
+SET Nitrogen 2
+SET Oxygen 3
+SET Sodium  4
+SET Chlorine 5
+SET Water 6
+SET Hydrogen 7
+SET NDNA 8
+SET ACECHGLC 9
+SET sulphendproduct 10
+MOVE Copper NDNA 10
+MOVE Nitrogen NDNA 10
+MOVE Oxygen NDNA 30
+HEAT NDNA 470
+MOVE Water NDNA 10
+MOVE Chlorine ACECHGLC 20
+HEAT ACECHGLC 800
+MOVE Sodium ACECHGLC 10
+MOVE Oxygen ACECHGLC 20
+MOVE Hydrogen ACECHGLC 10
+MOVE Water ACECHGLC 10
+MOVE ACECHGLC sulphendproduct 20
+MOVE NDNA sulphendproduct 36
