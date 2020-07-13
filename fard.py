@@ -11,6 +11,12 @@ SX = "}"
 
 runtime_vars = {SX: "sx", AX: "ax", TX: "tx"}
 
+default_constants = {
+    "PILL": 11,
+    "VIAL": 12,
+    "DUMP": 13
+}
+
 ADD = "+"
 SUB = "-"
 RIGHT = ">"
@@ -47,8 +53,8 @@ class Compiler():
         self.lines = self.code.split("\n")
         self.line_index = 0
         self.pointer = 0
-        self.memory = [0]*MEMORY_SIZE
-        self.vars = {runtime_vars[AX]: 0, runtime_vars[TX]: 0, runtime_vars[SX]: 0}
+        self.memory = [0] * MEMORY_SIZE
+        self.vars = dict({runtime_vars[AX]: 0, runtime_vars[TX]: 0, runtime_vars[SX]: 0}, **default_constants)
         self.repeat_stack = []
         self.output = ""
 
@@ -191,12 +197,12 @@ class Compiler():
             del self.repeat_stack[-1]
 
 if len(sys.argv) >= 2:
-    try:
-        code = open(sys.argv[1]).read()
-        compiler = Compiler(code)
-        out = compiler.compile()
-        if out: sys.stdout.write(out)
-    except:
-        sys.stdout.write("Could not open file "+sys.argv[1])
+#try:
+    code = open(sys.argv[1]).read()
+    compiler = Compiler(code)
+    out = compiler.compile()
+    if out: sys.stdout.write(out)
+#except Exception as e:
+    sys.stdout.write("Could not open file "+sys.argv[1])
 else:
     sys.stdout.write("Please specify a file to compile!")
